@@ -9,6 +9,5 @@ test
 .github
 .prettierrc
 eslint.config.mjs
-nest-cli.json
-tsconfig*.json
+
 README.md
