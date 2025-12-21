@@ -1,0 +1,21 @@
+# docker-compose.yml
+version: '3.8'
+services:
+  api:
+    build:
+      context: .
+      # Target the 'development' stage from the Dockerfile
+      # This ensures we have dev dependencies but skip the build command
+      target: development
+    ports:
+      # Map host port 3000 to container port 3000
+      - "3000:3000"
+    volumes:
+      # Mount the current directory to the container app directory
+      # This enables hot-reloading by mirroring file changes
+      - .:/usr/src/app
+      # Create an anonymous volume for node_modules
+      # This prevents the host's empty node_modules from overriding the container's populated one
+      - /usr/src/app/node_modules
+    # Override the default command to run in development mode with watch enabled
+    command: npm run start:dev
