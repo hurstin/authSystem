@@ -1,0 +1,45 @@
+name: CI pipeline # The name of the workflow as it will appear in the GitHub Actions "Actions" tab
+
+# Event triggers: Defines when this workflow should run
+on:
+  push:
+    branches: [ "main"] # Trigger on push events targeting the main branch
+  pull_request:
+    branches: [ "main" ] # Trigger on pull request events targeting the main branch
+
+jobs:
+  # Define a job named 'build-and-test'
+  build-and-test:
+    runs-on: ubuntu-latest # The type of runner that the job will run on (latest Ubuntu version)
+
+    steps:
+      # Step 1: Check out the repository code so the workflow can access it
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Specify the Node.js version to use
+          cache: 'npm' # Cache npm dependencies to speed up future runs
+
+      # Step 3: Install dependencies
+      # 'npm ci' is preferred over 'npm install' for CI environments as it installs exactly what's in package-lock.json
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4: Linting
+      # Checks for code style and formatting issues based on the project's configuration (e.g., ESLint)
+      - name: Run Lint
+        run: npm run lint --if-present
+
+      # Step 5: Build
+      # Compiles the TypeScript code to JavaScript. This verification ensures the project is buildable and detects transpilation errors.
+      - name: Build Project 
+        run: npm run build --if-present
+
+      # Step 6: Testing
+      # Runs unit tests to ensure code correctness and prevent regressions.
+      - name: Run Unit Tests
+        run: npm run test --if-present
