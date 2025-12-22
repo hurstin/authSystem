@@ -1,4 +1,3 @@
-# docker-compose.yml
 version: '3.8'
 services:
   api:
@@ -19,3 +18,22 @@ services:
       - /usr/src/app/node_modules
     # Override the default command to run in development mode with watch enabled
     command: npm run start:dev
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: authSystem
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
