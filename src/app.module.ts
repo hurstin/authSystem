@@ -11,7 +11,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       
       useFactory: (configService: ConfigService) => {
-        const isProduction = configService.get('NODE_ENV') === 'production'
+        // const isProduction = configService.get('NODE_ENV') === 'production'
         
         return {
           // postgres connection
