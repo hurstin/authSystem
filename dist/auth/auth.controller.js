@@ -23,7 +23,7 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    async login(req) {
+    login(req) {
         return this.authService.login(req.user);
     }
     async signup(createUserDto) {
@@ -40,7 +40,7 @@ __decorate([
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, common_1.Post)('signup'),

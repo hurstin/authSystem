@@ -35,7 +35,7 @@ exports.AppModule = AppModule = __decorate([
                         synchronize: true,
                     };
                 },
-                inject: [config_1.ConfigService]
+                inject: [config_1.ConfigService],
             }),
             users_module_1.UsersModule,
             auth_module_1.AuthModule,

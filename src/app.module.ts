@@ -11,10 +11,10 @@ import { AuthModule } from './auth/auth.module';
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      
+
       useFactory: (configService: ConfigService) => {
         // const isProduction = configService.get('NODE_ENV') === 'production'
-        
+
         return {
           // postgres connection
           type: 'postgres',
@@ -25,10 +25,10 @@ import { AuthModule } from './auth/auth.module';
           password: configService.get('DB_PASSWORD'),
           database: configService.get<string>('DB_DATABASE'),
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
-           synchronize: true, // Auto-creates DB tables based on entities (Disable in production!)
-        }
+          synchronize: true, // Auto-creates DB tables based on entities (Disable in production!)
+        };
       },
-      inject:[ConfigService]
+      inject: [ConfigService],
     }),
     UsersModule,
     AuthModule,
