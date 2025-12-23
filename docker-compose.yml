@@ -17,6 +17,18 @@ services:
       # This prevents the host's empty node_modules from overriding the container's populated one
       - /usr/src/app/node_modules
     # Override the default command to run in development mode with watch enabled
+
+    # Adding the Watch configuration here
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: ./src
+          target: /usr/src/app/src
+          action: sync
+          
     command: npm run start:dev
     depends_on:
       - db
